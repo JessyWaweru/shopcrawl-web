@@ -84,7 +84,7 @@ function SignUp() {
     }
 
     // --- 2. ADMIN LOGIC ---
-    const isAdmin = admin_code === "secret123";
+    // The server checks admin_code and decides whether this account is an admin.
 
     // --- 3. PREPARE DATA ---
     const userPayload = {
@@ -95,7 +95,7 @@ function SignUp() {
         email: email,
         password: password,
         recovery_pin: recovery_pin,
-        admin: isAdmin 
+        admin_code: admin_code
     };
 
     try {
@@ -109,7 +109,7 @@ function SignUp() {
       const data = await registerResponse.json();
 
       if (registerResponse.ok) {
-        const successMsg = isAdmin ? "Admin Account Created!" : "Account Created!";
+        const successMsg = data.admin ? "Admin Account Created!" : "Account Created!";
         toast.success(`${successMsg} Logging you in...`);
 
         // --- STEP B: AUTO-LOGIN ---

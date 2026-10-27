@@ -36,54 +36,24 @@ export default function ResetPassword() {
     setIsLoading(true);
 
     try {
-      // 1. Fetch Users to find the matching email
-      // (In a real app, you would have a specific endpoint like /api/check-email)
-      const response = await fetch(`${API_URL}/api/users/`);
-      
-      if (!response.ok) throw new Error("Could not connect to server");
-      
-      const data = await response.json();
-      
-      // 2. Find User by Email
-      const user = data.find((u) => u.email === email);
+      // The server checks the PIN, so no user data ever reaches the browser.
+      const response = await fetch(`${API_URL}/api/reset-password/`, {
+          method: 'POST',
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, recovery_pin: recoveryPin, password })
+      });
 
-      if (user) {
-        
-        // --- 3. VERIFICATION STEP ---
-        // Compare the typed PIN with the one in the database
-        // We cast both to String to avoid type mismatch errors (e.g. 1234 vs "1234")
-        if (String(user.recovery_pin) !== String(recoveryPin)) {
-             toast.error("Invalid Recovery PIN. Identity could not be verified.");
-             setIsLoading(false);
-             return; 
-        }
-
-        // 4. Update Password (PATCH request)
-        // Now that serializers.py is fixed, this 'password' will be hashed properly.
-        const updateResponse = await fetch(`${API_URL}/api/users/${user.id}/`, {
-            method: 'PATCH',
-            headers: { 
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                password: password 
-            })
-        });
-
-        if (updateResponse.ok) {
-          toast.success("Password reset successfully! Redirecting...");
-          setEmail("");
-          setRecoveryPin("");
-          setPassword("");
-          setTimeout(() => navigate("/signin"), 2000);
-        } else {
-          const errorData = await updateResponse.json();
-          console.error("Update failed:", errorData);
-          toast.error("Failed to update password. Server rejected the request.");
-        }
-
+      if (response.ok) {
+        toast.success("Password reset successfully! Redirecting...");
+        setEmail("");
+        setRecoveryPin("");
+        setPassword("");
+        setTimeout(() => navigate("/signin"), 2000);
+      } else if (response.status === 429) {
+        toast.error("Too many attempts. Please try again later.");
       } else {
-        toast.error("Email not found in our records.");
+        const errorData = await response.json();
+        toast.error(errorData.error || "Identity could not be verified.");
       }
     } catch (error) {
       console.error("Error:", error);

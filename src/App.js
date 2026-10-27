@@ -5,7 +5,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import SignIn from "./components/signIn";
 import SignUp from "./components/signUp";
-import SignUpAdmin from "./components/signUpAdmin";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import ProductDetails from "./components/ProductDetails";
@@ -49,7 +48,6 @@ function App() {
           <Route path="/signIn" element={BaseRoute(SignIn)} />
           <Route path="/signUp" element={BaseRoute(SignUp)} />
           <Route path="/reset-password" element={BaseRoute(ResetPassword)} />
-          <Route path="/signUpAdmin" element={BaseRoute(SignUpAdmin)} />
           <Route path="/products" element={BaseRoute(ProductsList)} />
           <Route path="/ProductsHome" element={BaseRoute(ProductsHome)} />
           <Route path="/ProductsList" element={BaseRoute(ProductsList)} />
