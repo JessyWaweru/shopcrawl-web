@@ -6,7 +6,7 @@
 
 **The React frontend for ShopCrawl: compare Amazon, Jumia, Kilimall and Shopify side by side, ranked by SmartRank™.**
 
-[![Live Demo](https://img.shields.io/badge/🔴_Live_Demo-shopcrawl.onrender.com-e11d48?style=for-the-badge)](https://shopcrawl.onrender.com/)
+[![Live Demo](https://img.shields.io/badge/🔴_Live_Demo-shopcrawl--frontend.onrender.com-e11d48?style=for-the-badge)](https://shopcrawl-frontend.onrender.com/)
 [![Backend](https://img.shields.io/badge/Backend_Repo-shopcrawl--api-0f172a?style=for-the-badge&logo=github)](https://github.com/JessyWaweru/shopcrawl-api)
 
 ![React](https://img.shields.io/badge/React_18-61DAFB?logo=react&logoColor=black)
