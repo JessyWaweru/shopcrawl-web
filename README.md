@@ -19,6 +19,10 @@
 
 </div>
 
+<p align="center">
+  <img src="screenshots/demo.gif" width="800" alt="Demo: filter products by samsung, open the TV, and see four stores ranked by SmartRank">
+</p>
+
 ---
 
 ## 📸 Screenshots
